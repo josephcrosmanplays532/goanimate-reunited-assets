@@ -1,0 +1,92 @@
+<html><script type="text/javascript" class="__REQUESTLY__SCRIPT">(function(namespace) {
+  window[namespace] = window[namespace] || {};
+  window[namespace].responseRules = {};
+
+  let open = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(method) {
+    this.addEventListener('readystatechange', function() {
+      if (this.readyState === 4 && window[namespace].responseRules.hasOwnProperty(this.responseURL)) {
+        const responseRule = window[namespace].responseRules[this.responseURL];
+        const {response, id} = responseRule;
+        const responseType = this.responseType;
+        let customResponse;
+
+        customResponse = response.type === 'code' ? responseRule.evaluator({
+            method,
+            url: this.responseURL,
+            requestHeaders: this.requestHeaders,
+            requestData: this.requestData,
+            responseType: this.responseType,
+            response: this.response
+          }) : response.value;
+
+        Object.defineProperty(this, 'response', {
+          get: function () {
+            if (response.type === 'static' && responseType === 'json') {
+              return JSON.parse(customResponse);
+            }
+            return customResponse;
+          }
+        });
+
+        if (responseType === '' || responseType === 'text') {
+          Object.defineProperty(this, 'responseText', {
+            get: function () {
+              return customResponse;
+            }
+          });
+        }
+
+        window.postMessage({
+          from: 'requestly',
+          type: 'response_rule_applied',
+          id
+        }, window.location.href);
+      }
+    }, false);
+    open.apply(this, arguments);
+  };
+
+  let send = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.send = function(data) {
+    this.requestData = data;
+    send.apply(this, arguments);
+  };
+
+  let setRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
+  XMLHttpRequest.prototype.setRequestHeader = function(header, value) {
+    this.requestHeaders = this.requestHeaders || {};
+    this.requestHeaders[header] = value;
+    setRequestHeader.apply(this, arguments);
+  }
+})('__REQUESTLY__')</script><head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="https://goanimatereborn.herokuapp.com/favicon.ico" type="image/png">
+	<title>404 Not Found</title>
+	<meta name="description" content="Wrapper Online 404">
+	<link rel="stylesheet" type="text/css" href="http://web.archive.org/web/20200722193527/https://wrapperonlineassets.ga//pages/css/global.css">
+	<link rel="stylesheet" type="text/css" href="http://web.archive.org/web/20200722193527/https://wrapperonlineassets.ga//pages/css/list.css">
+</head>
+<body>
+
+<header>
+	<div>
+		<h1 style="margin:0"><img id="logo" src="https://josephcrosmanplays532.github.io/goanimate-reunited-assets/logo.png" alt="GoAnimate: ReUnited"></h1>
+	</div>
+</header>
+<center><h1><b>Oops!</b></h1></center>
+<center><h3>The page that you are trying to look for could not be found.</h3></center><br>
+<center><img src="http://web.archive.org/web/20200722193527/https://wrapperonlineassets.ga//pages/img/404.png" height="42.5%" width="42.5%" alt="404 image designed by Imageny"></center><br>
+<center><a href="https://josephcrosmanplays532.github.io/goanimate-reunited-assets/mainpage.html">Go back to the main page</a>
+<footer>
+	<a id="discordlink" href="https://discord.gg/goanimate">Discord Server</a>
+</footer>
+
+
+
+
+
+
+
+
+</center></body></html>
