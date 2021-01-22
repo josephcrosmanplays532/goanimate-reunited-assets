@@ -1,0 +1,203 @@
+<html><script type="text/javascript" async="" src="http://web.archive.org/web/20180506043009/https://cdn.amplitude.com/libs/amplitude-4.1.1-min.gz.js"></script><script type="text/javascript" class="__REQUESTLY__SCRIPT">(function(namespace) {
+  window[namespace] = window[namespace] || {};
+  window[namespace].responseRules = {};
+
+  let open = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(method) {
+    this.addEventListener('readystatechange', function() {
+      if (this.readyState === 4 && window[namespace].responseRules.hasOwnProperty(this.responseURL)) {
+        const responseRule = window[namespace].responseRules[this.responseURL];
+        const {response, id} = responseRule;
+        const responseType = this.responseType;
+        let customResponse;
+
+        customResponse = response.type === 'code' ? responseRule.evaluator({
+            method,
+            url: this.responseURL,
+            requestHeaders: this.requestHeaders,
+            requestData: this.requestData,
+            responseType: this.responseType,
+            response: this.response
+          }) : response.value;
+
+        Object.defineProperty(this, 'response', {
+          get: function () {
+            if (response.type === 'static' && responseType === 'json') {
+              return JSON.parse(customResponse);
+            }
+            return customResponse;
+          }
+        });
+
+        if (responseType === '' || responseType === 'text') {
+          Object.defineProperty(this, 'responseText', {
+            get: function () {
+              return customResponse;
+            }
+          });
+        }
+
+        window.postMessage({
+          from: 'requestly',
+          type: 'response_rule_applied',
+          id
+        }, window.location.href);
+      }
+    }, false);
+    open.apply(this, arguments);
+  };
+
+  let send = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.send = function(data) {
+    this.requestData = data;
+    send.apply(this, arguments);
+  };
+
+  let setRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
+  XMLHttpRequest.prototype.setRequestHeader = function(header, value) {
+    this.requestHeaders = this.requestHeaders || {};
+    this.requestHeaders[header] = value;
+    setRequestHeader.apply(this, arguments);
+  }
+})('__REQUESTLY__')</script><head><script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app58.us.archive.org';v.server_ms=500;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="/_static/js/playback.bundle.js?v=SOX25l-I" charset="utf-8"></script>
+<script type="text/javascript" src="/_static/js/wombat.js?v=cRqOKCOw" charset="utf-8"></script>
+<script type="text/javascript">
+  __wm.init("http://web.archive.org/web");
+  __wm.wombat("http://maintenance.goanimate.com/","20180506043009","http://web.archive.org/","web","/_static/",
+	      "1525581009");
+</script>
+<link rel="stylesheet" type="text/css" href="/_static/css/banner-styles.css?v=bsmaklHF">
+<link rel="stylesheet" type="text/css" href="/_static/css/iconochive.css?v=qtvMKcIJ">
+<!-- End Wayback Rewrite JS Include -->
+
+    <meta charset="utf-8">
+    <title>
+        Under Maintenance
+    </title>
+    <link href="http://web.archive.org/web/20180506043009cs_/https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+        body {
+            background-color: #eaedf1;
+            text-align: center;
+            padding-bottom: 16px;
+        }
+        .logo {
+            margin: 60px auto;
+            height: 48px;
+        }
+        .picture {
+            display: block;
+            margin: 0 auto;
+            height: 376px;
+        }
+        .text--extra-large {
+            margin: 16px auto 8px auto;
+            text-align: center;
+            font-family: Roboto, sans-serif;
+            font-size: 42px;
+            color: #686c7c;
+            font-weight: 100;
+        }
+        .text--small {
+            font-family: Roboto, sans-serif;
+            text-align: center;
+            font-size: 18px;
+            color: #b4b9c7;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            // Amplitude tracking
+            (function(e,t){var n=e.amplitude||{_q:[],_iq:{}};var r=t.createElement("script")
+            ;r.type="text/javascript";r.async=true
+            ;r.src="http://web.archive.org/web/20180506043009/https://cdn.amplitude.com/libs/amplitude-4.1.1-min.gz.js"
+            ;r.onload=function(){if(e.amplitude.runQueuedFunctions){
+            e.amplitude.runQueuedFunctions()}else{
+            console.log("[Amplitude] Error: could not load SDK")}}
+            ;var i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)
+            ;function s(e,t){e.prototype[t]=function(){
+            this._q.push([t].concat(Array.prototype.slice.call(arguments,0)));return this}}
+            var o=function(){this._q=[];return this}
+            ;var a=["add","append","clearAll","prepend","set","setOnce","unset"]
+            ;for(var u=0;u<a.length;u++){s(o,a[u])}n.Identify=o;var c=function(){this._q=[]
+            ;return this}
+            ;var l=["setProductId","setQuantity","setPrice","setRevenueType","setEventProperties"]
+            ;for(var p=0;p<l.length;p++){s(c,l[p])}n.Revenue=c
+            ;var d=["init","logEvent","logRevenue","setUserId","setUserProperties","setOptOut","setVersionName","setDomain","setDeviceId","setGlobalUserProperties","identify","clearUserProperties","setGroup","logRevenueV2","regenerateDeviceId","logEventWithTimestamp","logEventWithGroups","setSessionId"]
+            ;function v(e){function t(t){e[t]=function(){
+            e._q.push([t].concat(Array.prototype.slice.call(arguments,0)))}}
+            for(var n=0;n<d.length;n++){t(d[n])}}v(n);n.getInstance=function(e){
+            e=(!e||e.length===0?"$default_instance":e).toLowerCase()
+            ;if(!n._iq.hasOwnProperty(e)){n._iq[e]={_q:[]};v(n._iq[e])}return n._iq[e]}
+            ;e.amplitude=n})(window,document);
+
+            if (window.amplitude) {
+                const message = document.getElementById('content')
+                    .textContent
+                    .trim();
+
+                window.amplitude.init("4c9fffdee3fb26c43dd66c70698c5a8f");
+                window.amplitude.getInstance().logEvent('Error Page', {
+                    'page_url': window.location.href,
+                    referral: document.referrer,
+                    message,
+                });
+            }
+        }
+    </script>
+<div style="display: none;"></div></head>
+<body><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<style type="text/css">
+body {
+  margin-top:0 !important;
+  padding-top:0 !important;
+  /*min-width:800px !important;*/
+}
+</style>
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display: block; direction: ltr;">
+</div><div id="donato" style="position:relative;width:100%;">
+  <div id="donato-base">
+    <iframe id="donato-if" src="https://archive.org/includes/donate.php?as_page=1&amp;platform=wb&amp;referer=http%3A//web.archive.org/web/20180506043009/http%3A//maintenance.goanimate.com/" scrolling="no" frameborder="0" style="width:100%; height:100%">
+    </iframe>
+  </div>
+</div><script type="text/javascript">
+__wm.bt(650,27,25,2,"web","http://maintenance.goanimate.com/","20180506043009",1996,"/_static/",["/_static/css/banner-styles.css?v=bsmaklHF","/_static/css/iconochive.css?v=qtvMKcIJ"]);
+  __wm.rw(1);
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+    <div id="content">
+        <img class="logo" src="https://josephcrosmanplays532.github.io/goanimate-reunited-assets/logo.png">
+        <img class="picture" src="https://josephcrosmanplays532.github.io/goanimate-pictures/excited.png">
+        <h1 class="text--extra-large">Under Maintenance</h1>
+        <div class="text--small">Sorry For Being Offline For so Long. I Had School, Headache, And Other Stuff eta.</div>
+        <div class="text--small">You Can Browse The Website When I Try To Work On Getting The New Loading Screens Onto The Asset Server For You To Download. </div>
+    </div>
+
+
+<!--
+     FILE ARCHIVED ON 04:30:09 May 06, 2018 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 23:51:30 Jan 21, 2021.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  xauthn.chkprivs: 111.195
+  RedisCDXSource: 1.923
+  esindex: 0.018
+  xauthn.identify: 134.739
+  captures_list: 373.323
+  CDXLines.iter: 30.309 (3)
+  exclusion.robots: 246.307
+  load_resource: 120.365
+  LoadShardBlock: 89.917 (3)
+  exclusion.robots.policy: 246.291
+  PetaboxLoader3.datanode: 146.111 (4)
+  PetaboxLoader3.resolve: 31.14
+--></body></html>
